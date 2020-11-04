@@ -1,0 +1,1 @@
+/usr/bin/cc -Wall -Wextra -g -O0 -fno-inline  -rdynamic CMakeFiles/rbusValueChangeProvider.dir/provider/rbusValueChangeProvider.c.o  -o rbusValueChangeProvider -Wl,-rpath,/vagrant/rbus_sprint_2010/build/src: ../src/librbus.so.2.0.0 -lrtMessage -lrbus-core -fPIC -pthread 

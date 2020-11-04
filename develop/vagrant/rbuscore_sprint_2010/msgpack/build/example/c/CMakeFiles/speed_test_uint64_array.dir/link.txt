@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/speed_test_uint64_array.dir/speed_test_uint64_array.c.o  -o speed_test_uint64_array -Wl,-rpath,/vagrant/rbuscore_sprint_2010/msgpack/build ../../libmsgpackc.so.2.0.0 

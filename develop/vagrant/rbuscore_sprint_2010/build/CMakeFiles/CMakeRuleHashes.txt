@@ -1,0 +1,10 @@
+# Hashes of file build rules.
+89418dc8c5ae231ba2bff294e0bdce9b ../msgpack/src/msgpack-stamp/msgpack-build
+ee06e19c99e642eb958347aa0bfca314 ../msgpack/src/msgpack-stamp/msgpack-configure
+1c5ebb82251e6d9d4b4fc6e54f229cf1 ../msgpack/src/msgpack-stamp/msgpack-download
+e0d6dc8e94ecccd64e4bf85abc17f8a4 ../msgpack/src/msgpack-stamp/msgpack-install
+8a2d3fcc922dd3a175ef5653aade4ae1 ../msgpack/src/msgpack-stamp/msgpack-mkdir
+2703e3b1e2cd60b88e9ddf09d3393ff0 ../msgpack/src/msgpack-stamp/msgpack-patch
+ab564e4e45d7fbdf3c4705e62c8a8ebc ../msgpack/src/msgpack-stamp/msgpack-skip-update
+580f3d2ded3d16f7c72387cf0f58b6f6 CMakeFiles/msgpack
+a74234df16a447b45ad33ebfe6144f88 CMakeFiles/msgpack-complete

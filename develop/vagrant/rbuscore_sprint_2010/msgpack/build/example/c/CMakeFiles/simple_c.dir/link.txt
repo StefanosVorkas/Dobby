@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/simple_c.dir/simple_c.c.o  -o simple_c -Wl,-rpath,/vagrant/rbuscore_sprint_2010/msgpack/build ../../libmsgpackc.so.2.0.0 

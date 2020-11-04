@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/lib_buffer_unpack.dir/lib_buffer_unpack.c.o  -o lib_buffer_unpack -Wl,-rpath,/vagrant/rbuscore_sprint_2010/msgpack/build ../../libmsgpackc.so.2.0.0 

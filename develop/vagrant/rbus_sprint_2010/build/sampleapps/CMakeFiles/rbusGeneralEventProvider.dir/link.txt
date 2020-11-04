@@ -1,0 +1,1 @@
+/usr/bin/cc -Wall -Wextra -g -O0 -fno-inline  -rdynamic CMakeFiles/rbusGeneralEventProvider.dir/provider/rbusGeneralEventProvider.c.o  -o rbusGeneralEventProvider -Wl,-rpath,/vagrant/rbus_sprint_2010/build/src: ../src/librbus.so.2.0.0 -lrtMessage -lrbus-core -fPIC -pthread 

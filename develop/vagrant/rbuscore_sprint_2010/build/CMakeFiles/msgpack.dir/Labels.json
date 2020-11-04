@@ -1,0 +1,51 @@
+
+{
+	"sources" : 
+	[
+		
+		{
+			"file" : "/vagrant/rbuscore_sprint_2010/build/CMakeFiles/msgpack"
+		},
+		
+		{
+			"file" : "/vagrant/rbuscore_sprint_2010/build/CMakeFiles/msgpack.rule"
+		},
+		
+		{
+			"file" : "/vagrant/rbuscore_sprint_2010/build/CMakeFiles/msgpack-complete.rule"
+		},
+		
+		{
+			"file" : "/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-install.rule"
+		},
+		
+		{
+			"file" : "/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-mkdir.rule"
+		},
+		
+		{
+			"file" : "/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-download.rule"
+		},
+		
+		{
+			"file" : "/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-patch.rule"
+		},
+		
+		{
+			"file" : "/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-configure.rule"
+		},
+		
+		{
+			"file" : "/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-build.rule"
+		},
+		
+		{
+			"file" : "/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-skip-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : [ "msgpack" ],
+		"name" : "msgpack"
+	}
+}

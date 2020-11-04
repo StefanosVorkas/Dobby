@@ -69,7 +69,8 @@ Vagrant.configure("2") do |config|
     SHELL
 
     config.vm.provision "shell", inline: <<-SHELL
-        apt install figlet
+	sudo apt-get update -y
+	sudo apt-get install -y figlet
     SHELL
 
     ##################################################

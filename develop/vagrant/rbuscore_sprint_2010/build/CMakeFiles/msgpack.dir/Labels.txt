@@ -1,0 +1,13 @@
+# Target labels
+ msgpack
+# Source files and their labels
+/vagrant/rbuscore_sprint_2010/build/CMakeFiles/msgpack
+/vagrant/rbuscore_sprint_2010/build/CMakeFiles/msgpack.rule
+/vagrant/rbuscore_sprint_2010/build/CMakeFiles/msgpack-complete.rule
+/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-install.rule
+/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-mkdir.rule
+/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-download.rule
+/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-patch.rule
+/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-configure.rule
+/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-build.rule
+/vagrant/rbuscore_sprint_2010/msgpack/src/msgpack-stamp/msgpack-skip-update.rule
