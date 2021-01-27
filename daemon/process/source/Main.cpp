@@ -477,8 +477,10 @@ int main(int argc, char * argv[])
     PerfettoTracing::initialise();
 #endif
 
-    AI_LOG_INFO("starting dbus service");
-    AI_LOG_INFO("  dbus address '%s'", gDbusAddress.c_str());
+    //announce rbus - logs irrelevant but might be good to change this 
+    //to switch depending on bus used to avoid confusion in debugging
+    AI_LOG_INFO("starting rbus service");
+    AI_LOG_INFO("  rbus address '%s'", gDbusAddress.c_str());
     AI_LOG_INFO("  service name '%s'", DOBBY_SERVICE);
     AI_LOG_INFO("  object name '%s'", DOBBY_OBJECT);
 
@@ -511,6 +513,9 @@ int main(int argc, char * argv[])
     else
     {
         // Create the dobby object and hook into the IPC service
+        //change to point to mRbus instead of getting bus address.
+        //Maybe incorrect to include implementation specific libraries like rbus here?
+        //rbusHandle_t mRbus = rbus_open()
         Dobby dobby(ipcService->getBusAddress(), ipcService, settings);
 
         // On debug builds try and detect the AI dbus addresses at startup

@@ -24,9 +24,12 @@ RBusIpcService::RBusIpcService(const std::string &busAddress,
     , mLastExecTag(0)
     , mExecEventFd(-1)
 {
+
+    AI_LOG_WARN("CONSTRUCTOR WITH ADDRESS AND NAME CALLED");
     rbusHandle_t bus = nullptr;
     char *tmp;
     tmp = strdup(serviceName.c_str());
+    
     rbusError_t rc = rbus_open(&bus,tmp);
     mRBus = &bus;
     
@@ -42,29 +45,47 @@ RBusIpcService::RBusIpcService(BusType busType,
     , mLastExecTag(0)
     , mExecEventFd(-1)
 {
-    rbusHandle_t bus = nullptr;
+
+    AI_LOG_WARN("CONSTRUCTOR WITH TYPE AND NAME CALLED");
+    rbusHandle_t bus = 0;
     rbusError_t rc = (rbusError_t)1;
     char *tmp;
+    int numberElements = 0;
+    char *elementNames[25] = {0,0};
+    int numComponents = 0;
+    char **componentName;
     switch (busType){
         case SystemBus:
             tmp = strdup("SYSTEM");
             rc = rbus_open(&bus,tmp);
+            if ((RBUS_ERROR_SUCCESS == rc) && (0 != bus)){
+                AI_LOG_SYS_FATAL(rc,"OPENED");
+                //rbusError_t errorcode = rbus_discoverComponentName(bus,numberElements,elementNames,&numComponents,&componentName);
+                //if(errorcode==RBUS_ERROR_SUCCESS){
+                  //  printf("FOUND THESE COMPONENTS: \n");
+                    //for ( int i=0;i<numComponents;i++){
+                      //  printf("Component %d: %s\n",(i+1,componentName[i]));
+                    //}
+                //}
+            }
             break;
         case SessionBus:
             tmp = strdup("SESSION");
             rc = rbus_open(&bus,tmp);
+            AI_LOG_SYS_FATAL(rc,"OPENED");
             break;
     }
     if((rc>(rbusError_t)0)||!bus){
         AI_LOG_SYS_FATAL(-rc, "Failed to open connection to rbus");
         return;
     }
-
+    AI_LOG_WARN("BUS with name: %s, attempting to open",tmp);
     mRBus=&bus;
-    //do you need to delete?
 }
 RBusIpcService::~RBusIpcService()
 {
+
+    AI_LOG_WARN("destructor CALLED");
     if(mRBus){
         rbus_close(*mRBus);
     }
@@ -76,11 +97,20 @@ RBusIpcService::~RBusIpcService()
     
 bool RBusIpcService::start()
 {
+
+    AI_LOG_WARN("START CALLED");
     return true; 
+}
+bool RBusIpcService::stop()
+{
+
+    AI_LOG_WARN("STOP CALLED");
+    return true;
 }
 
 bool RBusIpcService::init(const std::string &serviceName, int defaultTimeoutMs)
 {    
+    AI_LOG_WARN("INIT CALLED");
     if (defaultTimeoutMs <= 0)
         mDefaultTimeoutUsecs = (25 * 1000 * 1000);
     else
@@ -100,6 +130,8 @@ bool RBusIpcService::invokeMethod(const Method &method,
                                   VariantList &replyArgs,
                                   int timeoutMs)
 {
+
+    AI_LOG_WARN("INVOKE METHOD CALLED");
     uint64_t timeoutUsecs;
     if(timeoutMs<0)
         timeoutUsecs=mDefaultTimeoutUsecs;
@@ -232,6 +264,8 @@ bool RBusIpcService::invokeMethod(const Method &method,
 }
 rbusError_t RBusIpcService::eventSubHandler(rbusHandle_t handle, rbusEventSubAction_t action, const char* eventName, rbusFilter_t filter, int32_t interval, bool* autoPublish)
 {
+
+    AI_LOG_WARN("EVENT SUB HANDLER CALLED");
     (void)handle;
     (void)filter;
     (void)autoPublish;
@@ -262,32 +296,40 @@ rbusError_t RBusIpcService::eventSubHandler(rbusHandle_t handle, rbusEventSubAct
     return RBUS_ERROR_SUCCESS;
 }
 
-rbusMethodHandler_t RBusIpcService::handlerRegistration(rbusHandle_t handle,char const* methodName,rbusObject_t inParams,rbusObject_t outParams,rbusMethodAsyncHandle_t asyncHandle)
-{
+rbusError_t RBusIpcService::handlerRegistration(rbusHandle_t handle,char const* methodName,rbusObject_t inParams,rbusObject_t outParams,rbusMethodAsyncHandle_t asyncHandle)
+{   
+    //rbusMethodHandler_t returnable;
+    AI_LOG_WARN("HANDLER REGISTRATION CALLED");
     if(strcmp(methodName, "DOBBY_CTRL_METHOD_START_FROM_BUNDLE") == 0)
     {
-
+        return RBUS_ERROR_SUCCESS;
     }
     else if(strcmp(methodName, "DOBBY_CTRL_METHOD_STOP") == 0)
     {
-
+        return RBUS_ERROR_SUCCESS;
     }
+    return RBUS_ERROR_BUS_ERROR;
+
 }
 std::string RBusIpcService::registerMethodHandler(const Method &method,
                                                   const MethodHandler &handler)
 {
+
+    AI_LOG_WARN("REGISTER METHOD HANDLER CALLED");
+    AI_LOG_WARN("Method %s attempted registration",method.name.c_str());
     rbusObject_t outParams;
     rbusObject_Init(&outParams,"outparameters");
-    rbusMethodHandler_t mhandler = handlerRegistration(*mRBus,method.name.c_str(),NULL,outParams,NULL);
+    rbusError_t rc = handlerRegistration(*mRBus,method.name.c_str(),NULL,outParams,NULL);
     char *tmp = strdup(method.name.c_str());
+    AI_LOG_WARN("Spot problem %s",tmp);
     rbusDataElement_t dataElements[1] ={
-        {tmp, RBUS_ELEMENT_TYPE_METHOD, {NULL, NULL, NULL, NULL, NULL, mhandler}}
+        {tmp, RBUS_ELEMENT_TYPE_METHOD, {NULL, NULL, NULL, NULL, NULL, handlerRegistration}}
     };
-
+    
+    //AI_LOG_WARN("Spot problem #2 %s",dataElements[0][0]);
     //register methods like in the methodprovider???
 
-    
-    rbusError_t rc = rbus_regDataElements(*mRBus,1,dataElements);
+    rc = rbus_regDataElements(*mRBus,1,dataElements);
     return "RBUS_ERROR_SUCCESS";
     //maybe this isn't even needed because of rbus structure.
     /*std::string tag;
@@ -319,6 +361,54 @@ std::string RBusIpcService::registerMethodHandler(const Method &method,
 void RBusIpcService::eventLoopThread()
 {
     AI_LOG_WARN("EVENT LOOP ATTEMPTED RUN");
+}
+std::shared_ptr<AI_IPC::IAsyncReplyGetter> RBusIpcService::invokeMethod(const AI_IPC::Method &method, const AI_IPC::VariantList &args, int timeoutMs)
+{
+    AI_LOG_WARN("invokeMethod called");
+}       
+bool RBusIpcService::emitSignal(const AI_IPC::Signal& signal, const AI_IPC::VariantList& args)
+{
+    AI_LOG_WARN("emitSignal called");
+    return true;
+}
+std::string RBusIpcService::registerSignalHandler(const AI_IPC::Signal& signal, const AI_IPC::SignalHandler& handler)
+{
+    AI_LOG_WARN("register signal handler called");
+    AI_LOG_WARN("Name: %s", signal.name);
+    std::string strng = "answer";
+    return strng;
+}
+bool RBusIpcService::unregisterHandler(const std::string& regId)
+{
+    AI_LOG_WARN("unregisterHandler called");
+    return true;
+}
+bool RBusIpcService::enableMonitor(const std::set<std::string>& matchRules, const AI_IPC::MonitorHandler& handler)
+{
+    AI_LOG_WARN("enableMonitor called");
+    return true;
+}
+bool RBusIpcService::disableMonitor()
+{
+    AI_LOG_WARN("disableMonitor called");
+    return true;
+}
+bool RBusIpcService::isServiceAvailable(const std::string& serviceName) const
+{
+    AI_LOG_WARN("isServiceAvailable called");
+    return true;
+}
+void RBusIpcService::flush()
+{
+    AI_LOG_WARN("flush called");
+};
+std::string RBusIpcService::getBusAddress() const
+{
+    
+    //This is being called and doesn't return anything.
+    AI_LOG_WARN("getBusAddress called");
+    std::string strng = "answer";
+    return strng;
 }
 
 /* create a new bus, set it's address then open it

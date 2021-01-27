@@ -80,7 +80,7 @@ class RBusIpcService : public AI_IPC::IIpcService
                                                   const AI_IPC::MethodHandler &handler) override;
 
         rbusError_t eventSubHandler(rbusHandle_t handle, rbusEventSubAction_t action, const char* eventName, rbusFilter_t filter, int32_t interval, bool* autoPublish);
-        rbusMethodHandler_t handlerRegistration(rbusHandle_t handle, char const* methodName, rbusObject_t inParams,rbusObject_t outParams,rbusMethodAsyncHandle_t asyncHandle);
+        static rbusError_t handlerRegistration(rbusHandle_t handle, char const* methodName, rbusObject_t inParams,rbusObject_t outParams,rbusMethodAsyncHandle_t asyncHandle);
     private:
     uint64_t mDefaultTimeoutUsecs;
 

@@ -19,8 +19,8 @@ project(DobbyIpcUtils)
 
 add_library(${PROJECT_NAME}
     STATIC
-    source/DobbyIPCUtils.cpp
-    source/DobbyIpcBus.cpp
+    rbus/DobbyIPCUtils.cpp
+    rbus/DobbyIpcBus.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
